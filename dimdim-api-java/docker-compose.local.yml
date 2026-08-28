@@ -1,0 +1,49 @@
+# ============================================================
+# APENAS PARA TESTE LOCAL, antes de subir para a Azure.
+#
+# Como os repositorios sao separados, este compose usa imagens
+# JA CONSTRUIDAS. Faca o build nos dois repositorios primeiro:
+#
+#   cd ../dimdim-db-oracle && docker build -t rm562259-db-oracle:v1 .
+#   cd ../dimdim-api-java  && docker build -t rm562259-api-java:v1  .
+#
+# Depois:
+#   export ORACLE_SYS_PASSWORD='SuaSenhaSys#2026'
+#   export APP_DB_PASSWORD='SuaSenhaApp#2026'
+#   docker compose -f docker-compose.local.yml up
+# ============================================================
+services:
+
+  oracle:
+    image: rm562259-db-oracle:v1
+    container_name: dimdim-oracle
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_SYS_PASSWORD}
+      APP_USER: dimdim
+      APP_USER_PASSWORD: ${APP_DB_PASSWORD}
+    ports:
+      - "1521:1521"
+    volumes:
+      - oradata:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+
+  api:
+    image: rm562259-api-java:v1
+    container_name: dimdim-api
+    depends_on:
+      oracle:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//oracle:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: dimdim
+      SPRING_DATASOURCE_PASSWORD: ${APP_DB_PASSWORD}
+      TZ: America/Sao_Paulo
+    ports:
+      - "8080:8080"
+
+volumes:
+  oradata:

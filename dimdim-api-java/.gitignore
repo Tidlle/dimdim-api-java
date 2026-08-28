@@ -1,0 +1,19 @@
+# build
+target/
+*.jar
+*.class
+
+# logs dos scripts
+scripts/*.log
+
+# segredos - NUNCA versionar
+.env
+.env.local
+*.pem
+*.key
+
+# IDE / SO
+.idea/
+.vscode/
+*.iml
+.DS_Store

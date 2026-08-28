@@ -1,0 +1,6 @@
+{
+  "_comentario": "GET nao possui corpo. Endpoints usados na demonstracao:",
+  "listarTodas": "GET http://<FQDN-DA-API>:8080/api/transacoes",
+  "buscarPorId": "GET http://<FQDN-DA-API>:8080/api/transacoes/6",
+  "filtrarPorTipo": "GET http://<FQDN-DA-API>:8080/api/transacoes?tipo=DEBITO"
+}

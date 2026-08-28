@@ -1,0 +1,5 @@
+{
+  "_comentario": "DELETE nao possui corpo.",
+  "endpoint": "DELETE http://<FQDN-DA-API>:8080/api/transacoes/6",
+  "respostaEsperada": "HTTP 204 No Content"
+}

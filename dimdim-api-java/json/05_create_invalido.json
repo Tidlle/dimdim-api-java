@@ -1,0 +1,6 @@
+{
+  "_comentario": "Payload proposital com erro, para demonstrar a validacao (HTTP 400)",
+  "descricao": "",
+  "valor": -10.00,
+  "tipo": "TRANSFERENCIA"
+}
