@@ -4,7 +4,7 @@
 #
 # Um unico ACR guarda as duas imagens, em repositorios distintos:
 #   <RM>-api-java   (repositorio dimdim-api-java)
-#   <RM>-db-oracle  (repositorio dimdim-db-oracle)
+#   <RM>-db-mysql   (repositorio dimdim-db-oracle)
 #
 # Este script existe nos dois repositorios.
 # RODE APENAS UMA VEZ, a partir de qualquer um dos dois.

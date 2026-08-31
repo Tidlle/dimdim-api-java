@@ -3,8 +3,8 @@
 # 06 - ACI da API Java
 #
 # PRE-REQUISITO: o ACI do banco (repositorio dimdim-db-oracle,
-# script 05) precisa estar Running e com o log mostrando
-# "DATABASE IS READY TO USE!". O ACI nao tem depends_on.
+# agora rodando MySQL, script 05_aci-mysql.sh) precisa estar
+# Running e com o log mostrando "ready for connections".
 #
 # Uso: ./06_aci-api-java.sh > 06_aci-api-java.log
 # ============================================================
@@ -26,11 +26,11 @@ DB_FQDN=$(az container show \
 if [ -z "${DB_FQDN}" ]; then
   echo ""
   echo "ERRO: nao encontrei o ACI do banco (${ACI_DB})."
-  echo "Rode antes o script 05_aci-oracle.sh no repositorio dimdim-db-oracle."
+  echo "Rode antes o script 05_aci-mysql.sh no repositorio dimdim-db-oracle."
   exit 1
 fi
 
-JDBC_URL="jdbc:oracle:thin:@//${DB_FQDN}:${ORACLE_PORT}/${ORACLE_PDB}"
+JDBC_URL="jdbc:mysql://${DB_FQDN}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo"
 echo ">> String de conexao: ${JDBC_URL}"
 
 echo ">> Criando o ACI ${ACI_APP}..."
@@ -51,7 +51,7 @@ az container create \
   --restart-policy OnFailure \
   --environment-variables \
       SPRING_DATASOURCE_URL="${JDBC_URL}" \
-      SPRING_DATASOURCE_USERNAME="${ORACLE_APP_USER}" \
+      SPRING_DATASOURCE_USERNAME="${DB_USER}" \
       TZ="America/Sao_Paulo" \
   --secure-environment-variables \
       SPRING_DATASOURCE_PASSWORD="${APP_DB_PASSWORD}"
