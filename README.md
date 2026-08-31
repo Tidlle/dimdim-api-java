@@ -11,7 +11,7 @@ Checkpoint 1 · 2º Semestre · DevOps Tools & Cloud Computing · FIAP
 
 | RM | Nome completo |
 |----|---------------|
-| RM562259 | *(representante do grupo)* |
+| RM562259 | Eduardo Martins |
 | RM562707 | João Victor Alcântara |
 
 ---
